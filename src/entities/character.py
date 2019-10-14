@@ -49,7 +49,7 @@ class Character(pygame.sprite.Sprite):
                 self.counter = 0
                 self.frame += 1
                 if self.frame > len(self.images) - 1:
-                    # Resets the complete animation
+                    # Resets the current animation
                     if self.state in self.unstopable_states:
                         if self.state == "Dying":
                             super().kill()
@@ -96,7 +96,7 @@ class Character(pygame.sprite.Sprite):
 
     @state.setter
     def state(self, new_state):
-        if (not self.state in self.unstopable_states and self.state != new_state) or self._end:
+        if (self.state not in self.unstopable_states and self.state != new_state) or self._end:
             self.reset_animations()
             for key in self._state.keys():
                 self._state[key] = False
@@ -109,13 +109,6 @@ class Character(pygame.sprite.Sprite):
     @property
     def image(self) -> pygame.surface.Surface:
         return self.images[self.frame]
-
-    @image.setter
-    def image(self, new_image: pygame.surface.Surface):
-        self.images[self.frame] = new_image
-
-    def __hash__(self):
-        return pygame.sprite.Sprite.__hash__(self)
 
     def __repr__(self):
         return f"{self.__class__.__name__} object at pos: {self.x}, {self.y} currently {self.state}"
