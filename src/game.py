@@ -41,18 +41,21 @@ class Game:
         self.all_sprites.draw(self.screen)
 
     def events(self):
+        # Handles multiple key presses at once
+        key = pygame.key.get_pressed()
+        if key[pygame.K_w]:
+            self.player.jump()
+        if key[pygame.K_d]:
+            self.player.move_right()
+        if key[pygame.K_a]:
+            self.player.move_left()
+
+        # Looks at past events and only runs it once
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
                 continue
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
-                    self.player.jump()
-                if event.key == pygame.K_d:
-                    self.player.move_right()
-                if event.key == pygame.K_a:
-                    self.player.move_left()
-
                 continue
 
     def quit(self):

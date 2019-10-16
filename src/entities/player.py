@@ -27,14 +27,6 @@ class Player(Entity):
         screen.blit(self.image, self.rect)
 
     def update(self):
-        key = pygame.key.get_pressed()
-
-        if key[pygame.K_w]:
-            self.jump()
-        if key[pygame.K_d]:
-            self.move_right()
-        if key[pygame.K_a]:
-            self.move_left()
 
         if self.rect.top > 0:
             self.rect.top -=1
