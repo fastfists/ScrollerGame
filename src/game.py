@@ -21,11 +21,12 @@ class Game:
     def run(self):
         self.running = True
         while self.running:
+            self.screen.fill((0,0,0))
+
             self.update()
             self.draw()
 
             self.events()
-            self.screen.fill((0,0,0))
 
             pygame.display.flip()
             self.clock.tick(60)
@@ -45,11 +46,11 @@ class Game:
                 self.running = False
                 continue
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_W:
+                if event.key == pygame.K_w:
                     self.player.jump()
-                if event.key == pygame.K_D:
+                if event.key == pygame.K_d:
                     self.player.move_right()
-                if event.key == pygame.K_A:
+                if event.key == pygame.K_a:
                     self.player.move_left()
 
                 continue

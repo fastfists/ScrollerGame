@@ -12,12 +12,12 @@ class Player(Entity):
 
     speed = 1
 
-    def move_left(speed=None):
+    def move_left(self, speed=None):
         if speed is None:
             speed = self.speed
-        self.rect.x += speed
+        self.rect.x -= speed
 
-    def move_right(speed=None):
+    def move_right(self, speed=None):
         if speed is None:
             speed = self.speed
         self.rect.x += speed
@@ -25,11 +25,22 @@ class Player(Entity):
     def draw(self, screen):
         print("hi john")
         screen.blit(self.image, self.rect)
-        
+
     def update(self):
+        key = pygame.key.get_pressed()
+
+        if key[pygame.K_w]:
+            self.jump()
+        if key[pygame.K_d]:
+            self.move_right()
+        if key[pygame.K_a]:
+            self.move_left()
+
         if self.rect.top > 0:
             self.rect.top -=1
 
-    def jump(self):
+    def jump(self, speed=None):
+        if speed is None:
+            speed = self.speed
         self.rect.y += speed*3
 
