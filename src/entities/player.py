@@ -1,6 +1,7 @@
 from .entity import Entity
 import pygame
 
+
 class Player(Entity):
 
     max_energy = 100
@@ -22,17 +23,17 @@ class Player(Entity):
             speed = self.speed
         self.rect.x += speed
 
-    def draw(self, screen):
-        print("hi john")
-        screen.blit(self.image, self.rect)
-
-    def update(self):
-
-        if self.rect.top > 0:
-            self.rect.top -=1
+    def update(self, game):
+        print(self.state.get())
+        if self.state.get() == "Jumping":
+            self.rect.bottom += 1
+            if self.rect.bottom == game.screen_size[1]:
+                self.state.set("Idle")
 
     def jump(self, speed=None):
+        if self.state.get() == "Jumping":
+            return
+        self.state.set("Jumping")
         if speed is None:
             speed = self.speed
-        self.rect.y += speed*3
-
+        self.rect.y -= speed*20

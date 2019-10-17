@@ -1,10 +1,10 @@
 import pygame
-from pygame import sprite
 from . import entities
 
 class Game:
     # initialize pygame
 
+    current_game = None
     def setup(self):
         pygame.init()
         self.screen_size = (700, 500)
@@ -14,9 +14,10 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        self.player = entities.get_player()
+        self.player = entities.get_player(self)
         self.all_sprites = pygame.sprite.Group()
         self.all_sprites.add(self.player)
+        Game.current_game = self
 
     def run(self):
         self.running = True
@@ -34,7 +35,7 @@ class Game:
         self.quit()
 
     def update(self):
-        self.all_sprites.update()
+        self.all_sprites.update(self)
 
     def draw(self):
         self.screen.fill((0,0,0))

@@ -3,8 +3,8 @@ from .state import State
 from .entity import Entity
 from .player import Player
 
-def get_player():
-
+def get_player(game):
+    
     state = State(noraml_states={"Idle"})
 
     size = 16, 32
@@ -12,11 +12,9 @@ def get_player():
     surface.fill((255, 0, 0))
 
     rect = surface.get_rect()
-    rect.topleft = (0, 0)
-    rect.size = (32, 16)
+    rect.bottomleft = (0, game.screen_size[1])
+    rect.size = size
 
-    image_ref = { "Idle" : [surface] } 
+    image_ref = { "Idle" : [surface], "Jumping": [surface] } 
 
     return Player(state=state, image_ref=image_ref, rect= rect)
-    
-
