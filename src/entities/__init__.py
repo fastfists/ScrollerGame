@@ -4,10 +4,10 @@ from .entity import Entity
 from .player import Player
 
 def get_player(game):
-    
+
     state = State(noraml_states={"Idle"})
 
-    size = 16, 32
+    size = 32, 64
     surface = pygame.Surface(size)
     surface.fill((255, 0, 0))
 
@@ -15,6 +15,6 @@ def get_player(game):
     rect.bottomleft = (0, game.screen_size[1])
     rect.size = size
 
-    image_ref = { "Idle" : [surface], "Jumping": [surface] } 
+    image_ref = { "Idle" : [surface], "Jumping": [surface] }
 
     return Player(state=state, image_ref=image_ref, rect= rect)
