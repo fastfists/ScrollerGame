@@ -26,12 +26,6 @@ class State:
                              "Dead"}
         return cls(noraml_states, unstopable_states, default_state)
 
-    @contextmanager
-    def end_of_animation(self):
-        self._end = True
-        yield
-        self._end = False
-
     def get(self) -> str:
         for key, value in self._state.items():
             if value:

@@ -3,19 +3,33 @@ import pyscroll
 from . import entities
 from .map import load_map
 
-def render_health_bar(self, size):
+def render_status(player, size) -> pygame.Surface:
     width, height = size
 
-    health_length = current_health // self.max_health
-    health_length = health_length if health_length >= 0 else 0
-
-    foreground = pygame.Surface((health_length,height))
-    foreground.fill(utils.GREEN)
+    ### Health ###
+    health_prop = player.health / player.max_health
+    health_foreground = pygame.Surface((health_prop * width,height))
+    health_foreground.fill((0, 255, 0))
 
     health_bar = pygame.Surface((width, height))
-    health_bar.blit(self.foreground, (0,0))
-    position = (0, 0)
-    screen.blit(health_bar, position)
+    health_bar.blit(health_foreground, (0,0))
+
+    ### Energy ###
+    energy_prop = player.energy / player.max_energy
+    energy_foreground = pygame.Surface((energy_prop * (width/2), height))
+    energy_foreground.fill((255, 255, 0))
+
+    energy_bar = pygame.Surface((width, height))
+    energy_bar.blit(energy_foreground, (0,0))
+
+    ### Status ###
+    status = pygame.Surface((width, height*2))
+    status.blit(health_bar, (0,0))
+    status.blit(energy_bar, (0, height))
+    status.set_colorkey((0,0,0))
+
+    return status
+
 
 class Game:
 
@@ -60,15 +74,27 @@ class Game:
     def draw(self):
         self.all_sprites.draw(self.screen)
 
+        status = render_status(self.player, (400, 20))
+
+        self.screen.blit(status, (0,0))
+
     def events(self):
         # Handles multiple key presses at once
         key = pygame.key.get_pressed()
+        player_moved = False
         if key[pygame.K_w]:
             self.player.jump()
         if key[pygame.K_d]:
+            player_moved = True
             self.player.move_right()
         if key[pygame.K_a]:
+            player_moved = True
             self.player.move_left()
+
+        if player_moved:
+            self.player.state.set("Walking")
+        else:
+            self.player.state.set("Idle")
 
         # Looks at past events and only runs it once
         for event in pygame.event.get():
