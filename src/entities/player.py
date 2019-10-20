@@ -10,10 +10,11 @@ class Player(Entity):
     energey_reload = 0.25
 
     max_health = 100
+    health = 100
+
     gravity = 1
 
     y_vel = 0
-    health = 100
     speed = 7
 
     def move_left(self, speed=None):
@@ -36,7 +37,6 @@ class Player(Entity):
                 self.state.set("Idle")
 
     def jump(self):
-
         if self.state.get() == "Jumping":
             return
 

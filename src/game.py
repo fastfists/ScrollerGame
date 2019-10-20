@@ -3,6 +3,20 @@ import pyscroll
 from . import entities
 from .map import load_map
 
+def render_health_bar(self, size):
+    width, height = size
+
+    health_length = current_health // self.max_health
+    health_length = health_length if health_length >= 0 else 0
+
+    foreground = pygame.Surface((health_length,height))
+    foreground.fill(utils.GREEN)
+
+    health_bar = pygame.Surface((width, height))
+    health_bar.blit(self.foreground, (0,0))
+    position = (0, 0)
+    screen.blit(health_bar, position)
+
 class Game:
 
     def setup(self):
