@@ -17,7 +17,7 @@ def render_status(player, size) -> pygame.Surface:
     ### Energy ###
     energy_prop = player.energy / player.max_energy
     energy_foreground = pygame.Surface((energy_prop * (width/2), height))
-    energy_foreground.fill((255, 255, 0))
+    energy_foreground.fill((0,0,255))
 
     energy_bar = pygame.Surface((width, height))
     energy_bar.blit(energy_foreground, (0,0))
