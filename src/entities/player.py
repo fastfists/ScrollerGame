@@ -27,7 +27,6 @@ class Player(Entity):
         self.rect.x += speed
 
     def update(self, game):
-        print(self.state.get())
         if self.state.get() == "Jumping":
             print(self.rect.bottomleft)
             self.y_vel += self.gravity

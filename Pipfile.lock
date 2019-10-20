@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "91a5e9bbc033de0eabce1a6624ab2e1eab335c8011edee02103179b311d205a4"
+            "sha256": "a2faf2cd5758f9ce5e743aa6f8ec72ecd9f2fb49af2d16c971ef00864fe277cd"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -45,6 +45,13 @@
             ],
             "index": "pypi",
             "version": "==1.9.6"
+        },
+        "pyscroll": {
+            "hashes": [
+                "sha256:031d0123989eceabf5b7047c0074a0da9ab379c8534ac7ead8a3dbea731aad9c"
+            ],
+            "index": "pypi",
+            "version": "==2.19.2"
         },
         "pytmx": {
             "hashes": [

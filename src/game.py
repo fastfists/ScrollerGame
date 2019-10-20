@@ -1,23 +1,28 @@
 import pygame
+import pyscroll
 from . import entities
+from .map import load_map
 
 class Game:
-    # initialize pygame
 
-    current_game = None
     def setup(self):
         pygame.init()
-        self.screen_size = (700, 500)
+        self.screen_size = (1600, 960)
 
         self.screen = pygame.display.set_mode(self.screen_size)
         pygame.display.set_caption("Scroller Game")
 
         self.clock = pygame.time.Clock()
 
+        self.map = pyscroll.TiledMapData(load_map("map2"))
+        self.map_layer = pyscroll.BufferedRenderer(self.map, self.screen_size)
+        self.map_layer.zoom = 2
+
         self.player = entities.get_player(self)
-        self.all_sprites = pygame.sprite.Group()
+
+        self.all_sprites = pyscroll.PyscrollGroup(map_layer=self.map_layer)
         self.all_sprites.add(self.player)
-        Game.current_game = self
+        self.all_sprites.center(self.player.rect.center)
 
     def run(self):
         self.running = True
@@ -35,10 +40,10 @@ class Game:
         self.quit()
 
     def update(self):
+        self.all_sprites.center(self.player.rect.center)
         self.all_sprites.update(self)
 
     def draw(self):
-        self.screen.fill((0,0,0))
         self.all_sprites.draw(self.screen)
 
     def events(self):
