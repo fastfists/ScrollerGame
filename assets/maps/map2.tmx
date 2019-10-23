@@ -26,26 +26,25 @@
 </data>
  </layer>
  <objectgroup id="2" name="Spawns">
-  <object id="23" name="Player" x="64" y="768" width="32" height="48"/>
+  <object id="23" name="Player" x="64" y="756" width="32" height="48"/>
  </objectgroup>
  <objectgroup id="3" name="Walls">
-  <object id="1" name="Wall" x="64" y="816" width="160" height="96"/>
-  <object id="3" name="Wall" x="296" y="816" width="208" height="96"/>
-  <object id="4" name="Wall" x="576" y="816" width="160" height="96"/>
-  <object id="6" name="Wall" x="1088" y="816" width="160" height="96"/>
-  <object id="7" name="Wall" x="928" y="432" width="160" height="96"/>
-  <object id="8" name="Wall" x="96" y="432" width="160" height="96"/>
+  <object id="1" name="Wall" x="64" y="804" width="160" height="108"/>
+  <object id="3" name="Wall" x="296" y="804" width="208" height="108"/>
+  <object id="4" name="Wall" x="576" y="804" width="160" height="108"/>
+  <object id="6" name="Wall" x="1088" y="804" width="160" height="108"/>
+  <object id="7" name="Wall" x="928" y="420" width="160" height="108"/>
+  <object id="8" name="Wall" x="96" y="420" width="160" height="108"/>
   <object id="9" name="Wall" x="512" y="288" width="160" height="96"/>
   <object id="10" name="Wall" x="32" y="144" width="160" height="96"/>
   <object id="11" name="Wall" x="544" y="0" width="160" height="96"/>
   <object id="12" name="Wall" x="1088" y="144" width="160" height="96"/>
-  <object id="13" name="Wall" x="808" y="816" width="208" height="96"/>
-  <object id="14" name="Wall" x="1320" y="816" width="208" height="96"/>
-  <object id="17" name="Wall" x="328" y="432" width="208" height="96"/>
-  <object id="18" name="Wall" x="264" y="144" width="208" height="96"/>
+  <object id="13" name="Wall" x="808" y="804" width="208" height="108"/>
+  <object id="14" name="Wall" x="1320" y="804" width="208" height="108"/>
+  <object id="17" name="Wall" x="328" y="420" width="208" height="108"/>
   <object id="19" name="Wall" x="744" y="288" width="208" height="96"/>
   <object id="20" name="Wall" x="776" y="0" width="208" height="96"/>
-  <object id="21" name="Wall" x="1160" y="432" width="208" height="96"/>
+  <object id="21" name="Wall" x="1160" y="420" width="208" height="108"/>
   <object id="22" name="Wall" x="1320" y="144" width="208" height="96"/>
  </objectgroup>
 </map>

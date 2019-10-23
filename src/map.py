@@ -2,6 +2,7 @@ from .entities import *
 import pytmx
 import pygame
 from os import path
+from src.entities.walls import Wall
 
 def load_map(map_name) -> pygame.Surface:
     filename = path.join('assets/maps/', map_name+'.tmx')
@@ -27,4 +28,24 @@ def create_surface(map_name):
     map_surface = render_surface(Map)
 
     return map_surface
+
+def position_player(player:pygame.sprite.Sprite, tile_map):
+    for tile in tile_map.objects:
+        print("searching")
+        print(tile)
+        if tile.name == "Player":
+            player.rect.x = tile.x
+            player.rect.y = tile.y
+            return
+
+def create_walls(tile_map) -> pygame.sprite.Group:
+
+    walls = pygame.sprite.Group()
+    for tile in tile_map.objects:
+        if tile.name == "Wall":
+            rect = pygame.Rect(tile.x, tile.y, tile.width, tile.height)
+            walls.add(Wall(rect, groups=[walls]))
+
+    return walls
+
 
