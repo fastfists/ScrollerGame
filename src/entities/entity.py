@@ -25,11 +25,16 @@ class Entity(pygame.sprite.Sprite):
         self.state = state
 
         self.rect = rect
-        self.bbox = bbox
+
+        self.bbox = bbox or self.rect
 
     @property
     def image(self):
         return self.image_ref[self.state.get()][self.frame]
+
+    @property
+    def images(self):
+        return self.image_ref[self.state.get()]
 
     def animate(self):
         """ Changes the frame of the image """
@@ -41,7 +46,7 @@ class Entity(pygame.sprite.Sprite):
                 self.frame += 1
                 if self.frame > len(self.images) - 1:
                     # Resets the complete animation
-                    if self.state in self.unstopable_states:
+                    if self.state.get() in self.unstopable_states:
                         if self.state == "Dying":
                             self.kill()
                             with self.end_of_animation():
@@ -52,7 +57,7 @@ class Entity(pygame.sprite.Sprite):
                                 self.state = self.default_state
                     self.reset_animations()
 
-    def update(self):
+    def update(self, game):
         self.animate()
 
     def reset_animations(self):

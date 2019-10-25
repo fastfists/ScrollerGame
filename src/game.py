@@ -1,7 +1,7 @@
 import pygame
 import pyscroll
 from . import entities
-from .map import load_map, create_walls, position_player
+from .map import load_map, create_walls, add_mobs
 
 def render_status(player, size) -> pygame.Surface:
     width, height = size
@@ -42,17 +42,19 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        self.map_data = load_map("map2")
+        self.map_data = load_map("map4")
         self.map = pyscroll.TiledMapData(self.map_data)
         self.map_layer = pyscroll.BufferedRenderer(self.map, self.screen_size)
-        self.map_layer.zoom = 2
+        self.map_layer.zoom = 3
 
         self.walls = create_walls(self.map_data)
         self.player = entities.get_player(self)
-        position_player(self.player, self.map_data)
+        self.enemies = pygame.sprite.Group()
+        add_mobs(self, self.map_data)
 
         self.all_sprites = pyscroll.PyscrollGroup(map_layer=self.map_layer)
         self.all_sprites.add(self.player)
+        self.all_sprites.add(self.enemies)
         self.all_sprites.center(self.player.rect.center)
 
     def run(self):
