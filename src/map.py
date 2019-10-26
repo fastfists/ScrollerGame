@@ -46,7 +46,6 @@ def create_walls(tile_map) -> pygame.sprite.Group:
     for tile in tile_map.objects:
         if tile.name == "Wall":
             rect = pygame.Rect(tile.x, tile.y, tile.width, tile.height)
-            print(rect)
             walls.add(Wall(rect, groups=[walls]))
 
     return walls

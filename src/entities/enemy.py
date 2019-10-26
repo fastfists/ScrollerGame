@@ -32,5 +32,4 @@ class Enemy(Entity):
         if abs(self.rect.x - self.start_x) >= self.rect.width*self.max_pace:
             self.direction = -self.direction
 
-        print(self.rect)
 

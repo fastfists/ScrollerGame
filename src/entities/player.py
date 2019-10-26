@@ -4,8 +4,8 @@ import pygame
 
 class Player(Entity):
 
-    max_energy = 200
-    energy = 200
+    max_energy = 20000
+    energy = 20000
     energy_reload = 0.1
     base_energy_reload = 0.005
     energy_accel = 0.005
@@ -15,7 +15,7 @@ class Player(Entity):
 
     gravity = 1
     y_vel = 0
-    speed = 7
+    speed = 4
 
     def use_energy(self, energy_ammount):
         self.energy_reload = self.base_energy_reload
@@ -40,14 +40,16 @@ class Player(Entity):
     def update(self, game):
         # super().update(game)
         touching_walls = pygame.sprite.spritecollideany(self, game.walls)
+        print(self.state.get())
         if self.state.get() == "Jumping":
             self.y_vel += self.gravity
             self.rect.y += self.y_vel
 
-            if touching_walls  and self.y_vel > 0:
+            if touching_walls and self.y_vel > 0:
+                print(f"wall {touching_walls.rect.y} player {self.rect.y}")
                 self.state.set("Idle", override=True)
+                self.y_vel = 0
                 self.rect.bottom = touching_walls.rect.top + 1
-                print(touching_walls.rect, self.rect.bottomleft)
 
         if self.energy < self.max_energy:
             self.energy_reload += self.energy_accel
@@ -60,6 +62,7 @@ class Player(Entity):
         if touching_mobs:
             self.damage(2)
 
+
     def damage(self, health_ammount):
         self.health -= health_ammount
 
@@ -68,7 +71,7 @@ class Player(Entity):
             return
 
         if self.use_energy(3): return
-        self.y_vel = -self.speed*2
+        self.y_vel = -self.speed*4
         self.state.set("Jumping", override=True)
         self.jump_start = self.rect.bottom
 
