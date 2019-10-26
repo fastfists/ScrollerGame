@@ -8,7 +8,7 @@ pep8 = "*"
 pylint = "*"
 
 [packages]
-pygame = "*"
+pygame= "*"
 pytmx = "*"
 pyscroll = "*"
 

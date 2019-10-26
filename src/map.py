@@ -37,7 +37,7 @@ def add_mobs(game, tile_map):
             player.rect.x = tile.x
             player.rect.y = tile.y
         if tile.name == "Enemy":
-            enemy = Enemy.basic_enemy(tile.x, tile.y)
+            enemy = Enemy.basic_enemy(tile.x, tile.y, **tile.properties)
             game.enemies.add(enemy)
 
 def create_walls(tile_map) -> pygame.sprite.Group:
