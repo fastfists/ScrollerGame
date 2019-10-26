@@ -40,24 +40,22 @@ class Player(Entity):
     def update(self, game):
         # super().update(game)
         touching_walls = pygame.sprite.spritecollideany(self, game.walls)
-        print(self.state.get())
         if self.state.get() == "Jumping":
             if touching_walls and self.y_vel > 0 and (self.rect.bottom - self.y_vel) <= touching_walls.rect.top:
-                    print(f"wall {touching_walls.rect.y} player {self.rect.y}")
                     self.state.set("Idle", override=True)
                     self.y_vel = 0
                     self.rect.bottom = touching_walls.rect.top + 1
 
             self.y_vel += self.gravity
             self.rect.y += self.y_vel
-
+        else:
+            if not touching_walls or (self.rect.bottom - touching_walls.rect.top) > 2:
+                self.state.set("Jumping")
 
         if self.energy < self.max_energy:
             self.energy_reload += self.energy_accel
             self.energy += self.energy_reload
 
-        if not touching_walls :
-            self.state.set("Jumping")
 
         touching_mobs = pygame.sprite.spritecollideany(self, game.enemies)
         if touching_mobs:
