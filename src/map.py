@@ -37,7 +37,6 @@ def add_mobs(game, tile_map):
             player.rect.x = tile.x
             player.rect.y = tile.y
             player.configure_options(**tile.properties)
-
         if tile.name == "Enemy":
             enemy = Enemy.basic_enemy(tile.x, tile.y, **tile.properties)
             game.enemies.add(enemy)
