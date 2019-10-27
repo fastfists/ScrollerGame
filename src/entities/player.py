@@ -1,4 +1,5 @@
 from .entity import Entity
+from .state import State
 import pygame
 
 
@@ -16,6 +17,19 @@ class Player(Entity):
     gravity = 1
     y_vel = 0
     speed = 4
+
+    @classmethod
+    def basic_player(cls, game):
+        state = State(noraml_states={"Idle", "Walking"}, unstopable_states={"Jumping"})
+
+        size = 16, 16*2
+        surface = pygame.Surface(size)
+        surface.fill((255, 0, 0))
+
+        rect = surface.get_rect()
+        image_ref = { "Idle" : [surface], "Jumping": [surface], "Walking" : [surface]}
+
+        return cls(state=state, image_ref=image_ref, rect=rect)
 
     def use_energy(self, energy_ammount):
         self.energy_reload = self.base_energy_reload

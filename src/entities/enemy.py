@@ -6,6 +6,7 @@ class Enemy(Entity):
 
     direction = 1
     speed = 1
+    max_pace = 3
 
     @classmethod
     def basic_enemy(cls, x, y, **kw):
@@ -20,9 +21,8 @@ class Enemy(Entity):
         image_ref = {"Walking" : [surface]}
         return cls(state=state, image_ref=image_ref, rect=rect, **kw)
 
-    def __init__(self, max_pace=3, **kw):
+    def __init__(self, **kw):
         super().__init__(**kw)
-        self.max_pace = max_pace
         self.start_x = self.rect.x
 
     def update(self, game):

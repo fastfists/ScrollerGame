@@ -35,7 +35,7 @@ class Game:
 
     def setup(self):
         pygame.init()
-        self.screen_size = (1600, 960)
+        self.screen_size = (960, 600)
 
         self.screen = pygame.display.set_mode(self.screen_size)
         pygame.display.set_caption("Scroller Game")
@@ -48,7 +48,7 @@ class Game:
         self.map_layer.zoom = 3
 
         self.walls = create_walls(self.map_data)
-        self.player = entities.get_player(self)
+        self.player = entities.Player.basic_player(self)
         self.enemies = pygame.sprite.Group()
         add_mobs(self, self.map_data)
 
@@ -60,7 +60,6 @@ class Game:
     def run(self):
         self.running = True
         while self.running:
-            self.screen.fill((0,0,0))
 
             self.update()
             self.draw()
