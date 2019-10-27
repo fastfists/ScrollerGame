@@ -1,4 +1,5 @@
 from .entity import Entity
+from .state import State
 import pygame
 
 
@@ -16,6 +17,19 @@ class Player(Entity):
     gravity = 1
     y_vel = 0
     speed = 4
+
+    @classmethod
+    def basic_player(cls, game):
+        state = State(noraml_states={"Idle", "Walking"}, unstopable_states={"Jumping"})
+
+        size = 16, 16*2
+        surface = pygame.Surface(size)
+        surface.fill((255, 0, 0))
+
+        rect = surface.get_rect()
+        image_ref = { "Idle" : [surface], "Jumping": [surface], "Walking" : [surface]}
+
+        return cls(state=state, image_ref=image_ref, rect=rect)
 
     def use_energy(self, energy_ammount):
         self.energy_reload = self.base_energy_reload
@@ -40,13 +54,11 @@ class Player(Entity):
     def update(self, game):
         # super().update(game)
         touching_walls = pygame.sprite.spritecollideany(self, game.walls)
-        print(self.state.get())
         if self.state.get() == "Jumping":
             self.y_vel += self.gravity
             self.rect.y += self.y_vel
 
             if touching_walls and self.y_vel > 0:
-                print(f"wall {touching_walls.rect.y} player {self.rect.y}")
                 self.state.set("Idle", override=True)
                 self.y_vel = 0
                 self.rect.bottom = touching_walls.rect.top + 1

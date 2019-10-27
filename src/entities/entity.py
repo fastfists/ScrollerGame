@@ -13,7 +13,7 @@ class Entity(pygame.sprite.Sprite):
 
     state = State.basic_state()
 
-    def __init__(self, *, image_ref=None, rect=None, bbox=None, state: State=None):
+    def __init__(self, *, image_ref=None, rect=None, bbox=None, state: State=None, **options):
         """
         images = {
             state1 : [ pygame.Surface(), ...],
@@ -27,6 +27,12 @@ class Entity(pygame.sprite.Sprite):
         self.rect = rect
 
         self.bbox = bbox or self.rect
+
+        self.configure_options(**options)
+
+    def configure_options(self, **options):
+        for key, value in options.items():
+            exec(f"self.{key} = value")
 
     @property
     def image(self):
