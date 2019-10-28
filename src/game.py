@@ -84,15 +84,21 @@ class Game:
         # Handles multiple key presses at once
         key = pygame.key.get_pressed()
         player_moved = False
+        running = key[pygame.K_LSHIFT] or key[pygame.K_RSHIFT]
         if key[pygame.K_w]:
             self.player.jump()
         if key[pygame.K_d]:
             player_moved = True
-            self.player.move_right()
+            if running:
+                self.player.run_right()
+            else:
+                self.player.walk_right()
         if key[pygame.K_a]:
             player_moved = True
-            self.player.move_left()
-
+            if running:
+                self.player.run_left()
+            else:
+                self.player.walk_left()
         if player_moved:
             self.player.state.set("Walking")
         else:

@@ -38,18 +38,31 @@ class Player(Entity):
             self.energy += energy_ammount
             return True
 
-    def move(self, speed=None):
+    def walk(self, speed=None):
+        speed = speed or self.speed
+        self.rect.x += speed / 2
+
+    def walk_left(self, speed=None):
+        speed = speed or self.speed
+        self.walk(-abs(speed))
+
+    def walk_right(self, speed=None):
+        speed = speed or self.speed
+        self.walk(abs(speed))
+
+
+    def run(self, speed=None):
         if self.use_energy(1): return
         speed = speed or self.speed
         self.rect.x += speed
 
-    def move_left(self, speed=None):
+    def run_left(self, speed=None):
         speed = speed or self.speed
-        self.move(-abs(speed))
+        self.run(-abs(speed))
 
-    def move_right(self, speed=None):
+    def run_right(self, speed=None):
         speed = speed or self.speed
-        self.move(abs(speed))
+        self.run(abs(speed))
 
     def update(self, game):
         # super().update(game)
