@@ -5,7 +5,6 @@ verify_ssl = true
 
 [dev-packages]
 pep8 = "*"
-pylint = "*"
 
 [packages]
 pygame = "==2.0.0.dev6"
@@ -13,4 +12,4 @@ pytmx = "*"
 pyscroll = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"

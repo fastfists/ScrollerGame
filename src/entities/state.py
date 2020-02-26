@@ -46,3 +46,9 @@ class State:
             for key in self._state.keys():
                 self._state[key] = False
             self._state[new_state] = True
+<<<<<<< Updated upstream
+=======
+
+    def __repr__(self):
+        return self.get()
+>>>>>>> Stashed changes

@@ -11,7 +11,6 @@ class Entity(pygame.sprite.Sprite):
     animation_speed = 1
     frame = 0
     counter = 0
-
     state = State.basic_state()
 
     def __init__(
@@ -31,11 +30,8 @@ class Entity(pygame.sprite.Sprite):
         super().__init__()
         self.image_ref = image_ref
         self.state = state
-
         self.rect = rect
-
         self.bbox = bbox or self.rect
-
         self.configure_options(**options)
 
     def configure_options(self, **options):
