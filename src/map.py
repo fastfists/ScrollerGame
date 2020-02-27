@@ -3,16 +3,21 @@ import pytmx
 import pygame
 from os import path
 from src.entities.walls import Wall
-from src.entities.enemy import Enemy
+from src.entities.enemy import *
+
 
 def load_map(map_name) -> pygame.Surface:
     filename = path.join('assets/maps/', map_name+'.tmx')
     return pytmx.load_pygame(filename, pixelalpha=True)
 
+
 def render_surface(tile_map):
     get_tile = tile_map.get_tile_image_by_gid
     tile_width, tile_height = tile_map.tilewidth, tile_map.tileheight
-    surface = pygame.Surface((tile_map.width*tile_width, tile_height*tile_map.height))
+    surface = pygame.Surface((
+                            tile_map.width*tile_width,
+                            tile_height*tile_map.height
+                            ))
 
     for layer in tile_map.visible_layers:
         if isinstance(layer, pytmx.TiledTileLayer):
@@ -23,12 +28,14 @@ def render_surface(tile_map):
 
     return surface
 
+
 def create_surface(map_name):
     Map = load_map(map_name)
 
     map_surface = render_surface(Map)
 
     return map_surface
+
 
 def add_mobs(game, tile_map):
     player = game.player
@@ -40,6 +47,10 @@ def add_mobs(game, tile_map):
         if tile.name == "Enemy":
             enemy = Enemy.basic_enemy(tile.x, tile.y, **tile.properties)
             game.enemies.add(enemy)
+        if tile.name == "Bird":
+            enemy = Bird.basic_enemy(tile.x, tile.y, **tile.properties)
+            game.enemies.add(enemy)
+
 
 def create_walls(tile_map) -> pygame.sprite.Group:
 
@@ -50,5 +61,3 @@ def create_walls(tile_map) -> pygame.sprite.Group:
             walls.add(Wall(rect, groups=[walls]))
 
     return walls
-
-

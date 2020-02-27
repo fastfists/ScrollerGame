@@ -3,30 +3,31 @@ import pyscroll
 from . import entities
 from .map import load_map, create_walls, add_mobs
 
+
 def render_status(player, size) -> pygame.Surface:
     width, height = size
 
-    ### Health ###
+    # Health ###
     health_prop = player.health / player.max_health
-    health_foreground = pygame.Surface((health_prop * width,height))
+    health_foreground = pygame.Surface((health_prop * width, height))
     health_foreground.fill((0, 255, 0))
 
     health_bar = pygame.Surface((width, height))
-    health_bar.blit(health_foreground, (0,0))
+    health_bar.blit(health_foreground, (0, 0))
 
-    ### Energy ###
+    # Energy ###
     energy_prop = player.energy / player.max_energy
     energy_foreground = pygame.Surface((energy_prop * (width/2), height))
-    energy_foreground.fill((0,0,255))
+    energy_foreground.fill((0, 0, 255))
 
     energy_bar = pygame.Surface((width, height))
-    energy_bar.blit(energy_foreground, (0,0))
+    energy_bar.blit(energy_foreground, (0, 0))
 
-    ### Status ###
+    # Status ###
     status = pygame.Surface((width, height*2))
-    status.blit(health_bar, (0,0))
+    status.blit(health_bar, (0, 0))
     status.blit(energy_bar, (0, height))
-    status.set_colorkey((0,0,0))
+    status.set_colorkey((0, 0, 0))
 
     return status
 
@@ -114,4 +115,3 @@ class Game:
 
     def quit(self):
         pygame.quit()
-

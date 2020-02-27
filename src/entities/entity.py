@@ -3,6 +3,7 @@ import pygame
 
 from .state import State
 
+
 class Entity(pygame.sprite.Sprite):
 
     max_health = 100
@@ -13,7 +14,14 @@ class Entity(pygame.sprite.Sprite):
 
     state = State.basic_state()
 
-    def __init__(self, *, image_ref=None, rect=None, bbox=None, state: State=None, **options):
+    def __init__(
+            self,
+            *,
+            image_ref=None,
+            rect=None,
+            bbox=None,
+            state: State=None,
+            **options):
         """
         images = {
             state1 : [ pygame.Surface(), ...],
@@ -69,4 +77,3 @@ class Entity(pygame.sprite.Sprite):
     def reset_animations(self):
         """Sets the frame counters to 0"""
         self.frame, self.counter = 0, 0
-

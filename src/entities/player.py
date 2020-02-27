@@ -17,17 +17,23 @@ class Player(Entity):
     gravity = 1
     y_vel = 0
     speed = 4
+    jump_speed = 20
 
     @classmethod
     def basic_player(cls, game):
-        state = State(noraml_states={"Idle", "Walking"}, unstopable_states={"Jumping"})
+        state = State(
+                noraml_states={"Idle", "Walking"},
+                unstopable_states={"Jumping"})
 
         size = 16, 16*2
         surface = pygame.Surface(size)
         surface.fill((255, 0, 0))
 
         rect = surface.get_rect()
-        image_ref = { "Idle" : [surface], "Jumping": [surface], "Walking" : [surface]}
+        image_ref = {
+                "Idle": [surface],
+                "Jumping": [surface],
+                "Walking": [surface]}
 
         return cls(state=state, image_ref=image_ref, rect=rect)
 
@@ -50,9 +56,9 @@ class Player(Entity):
         speed = speed or self.speed
         self.walk(abs(speed))
 
-
     def run(self, speed=None):
-        if self.use_energy(1): return
+        if self.use_energy(1):
+            return
         speed = speed or self.speed
         self.rect.x += speed
 
@@ -68,7 +74,13 @@ class Player(Entity):
         # super().update(game)
         touching_walls = pygame.sprite.spritecollideany(self, game.walls)
         if self.state.get() == "Jumping":
-            if touching_walls and self.y_vel > 0 and (self.rect.bottom - self.y_vel) <= touching_walls.rect.top:
+            if (touching_walls and
+                    self.y_vel > 0):
+
+                platform_top = touching_walls.rect.top
+
+                if ((self.rect.bottom - self.y_vel) <= platform_top):
+
                     self.state.set("Idle", override=True)
                     self.y_vel = 0
                     self.rect.bottom = touching_walls.rect.top + 1
@@ -76,18 +88,18 @@ class Player(Entity):
             self.y_vel += self.gravity
             self.rect.y += self.y_vel
         else:
-            if not touching_walls or (self.rect.bottom - touching_walls.rect.top) > 2:
+            if (not touching_walls or
+                    (self.rect.bottom - touching_walls.rect.top) > 2):
+
                 self.state.set("Jumping")
 
         if self.energy < self.max_energy:
             self.energy_reload += self.energy_accel
             self.energy += self.energy_reload
 
-
         touching_mobs = pygame.sprite.spritecollideany(self, game.enemies)
         if touching_mobs:
             self.damage(2)
-
 
     def damage(self, health_ammount):
         self.health -= health_ammount
@@ -95,10 +107,8 @@ class Player(Entity):
     def jump(self):
         if self.state.get() == "Jumping":
             return
-
-        if self.use_energy(3): return
-        self.y_vel = -self.speed*4
+        if self.use_energy(3):
+            return
+        self.y_vel = -self.jump_speed
         self.state.set("Jumping", override=True)
         self.jump_start = self.rect.bottom
-
-
