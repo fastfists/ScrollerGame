@@ -1,2 +1,2 @@
 
-img_direc = 'images/'
+img_direc = 'assets/images/'

@@ -2,7 +2,8 @@ import pygame
 import pyscroll
 from . import entities
 from .map import load_map, create_walls, add_mobs
-
+from src.spritesheet import init_spritesheet
+from src.entities.spawns import basic_player
 
 def render_status(player, size) -> pygame.Surface:
     width, height = size
@@ -36,6 +37,8 @@ class Game:
 
     def setup(self):
         pygame.init()
+        init_spritesheet()
+        from src.spritesheet import SkeletonSheet
         self.screen_size = (960, 600)
 
         self.screen = pygame.display.set_mode(self.screen_size)
@@ -49,7 +52,7 @@ class Game:
         self.map_layer.zoom = 3
 
         self.walls = create_walls(self.map_data)
-        self.player = entities.Player.basic_player(self)
+        self.player = basic_player(self, SkeletonSheet)
         self.enemies = pygame.sprite.Group()
         add_mobs(self, self.map_data)
 
@@ -67,7 +70,7 @@ class Game:
 
             self.events()
 
-            pygame.display.flip()
+            pygame.display.update()
             self.clock.tick(60)
 
         self.quit()

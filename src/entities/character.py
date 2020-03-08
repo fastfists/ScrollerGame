@@ -34,7 +34,7 @@ class Character(pygame.sprite.Sprite):
             self._state[option] = False
         if not hasattr(self, "_images"):
             self._images = utils.get_all_images(self.__class__.__name__)  # returns a dict
-        self._images["Dead"] = [self._images["Dying"][-1]] # passes the last index
+        self._images["Dead"] = [self._images["Dying"][-1]]  # passes the last index
 
     def __init_subclass__(cls, picture_name: str = None, **kwargs):
         if picture_name:

@@ -19,24 +19,6 @@ class Player(Entity):
     speed = 4
     jump_speed = 20
 
-    @classmethod
-    def basic_player(cls, game):
-        state = State(
-                noraml_states={"Idle", "Walking"},
-                unstopable_states={"Jumping"})
-
-        size = 16, 16*2
-        surface = pygame.Surface(size)
-        surface.fill((255, 0, 0))
-
-        rect = surface.get_rect()
-        image_ref = {
-                "Idle": [surface],
-                "Jumping": [surface],
-                "Walking": [surface]}
-
-        return cls(state=state, image_ref=image_ref, rect=rect)
-
     def use_energy(self, energy_ammount):
         self.energy_reload = self.base_energy_reload
         self.energy -= energy_ammount
@@ -71,7 +53,8 @@ class Player(Entity):
         self.run(abs(speed))
 
     def update(self, game):
-        # super().update(game)
+        super().update(game)
+        print(self.frame)
         touching_walls = pygame.sprite.spritecollideany(self, game.walls)
         if self.state.get() == "Jumping":
             if (touching_walls and

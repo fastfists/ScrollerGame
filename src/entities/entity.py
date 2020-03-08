@@ -8,7 +8,7 @@ class Entity(pygame.sprite.Sprite):
 
     max_health = 100
     health = 100
-    animation_speed = 1
+    animation_speed = 0.3
     frame = 0
     counter = 0
     state = State.basic_state()
@@ -46,6 +46,10 @@ class Entity(pygame.sprite.Sprite):
     def images(self):
         return self.image_ref[self.state.get()]
 
+    @property
+    def dead(self):
+        return self.state.get() == "Dead"
+
     def animate(self):
         """ Changes the frame of the image """
         if not self.dead:
@@ -53,18 +57,15 @@ class Entity(pygame.sprite.Sprite):
             if self.counter >= 1:
                 # Changes to another image/frame
                 self.counter = 0
-                self.frame += 1
+                self.frame += 2
                 if self.frame > len(self.images) - 1:
                     # Resets the complete animation
-                    if self.state.get() in self.unstopable_states:
-                        if self.state == "Dying":
+                    if self.state.get() in self.state.unstopable_states:
+                        if self.state.get() == "Dying":
                             self.kill()
-                            with self.end_of_animation():
-                                self.state = "Dead"
-                                self.on_death()
+                            self.state.set("Dead", override=True)
                         else:
-                            with self.end_of_animation():
-                                self.state = self.default_state
+                            self.state.set(self.state.default_state, override=True)
                     self.reset_animations()
 
     def update(self, game):
