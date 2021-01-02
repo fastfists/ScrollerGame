@@ -4,9 +4,10 @@ from src import settings
 SkeletonSheet = None
 RougeSheet = None
 
+
 class SpriteSheet:
 
-    def __init__(self, file_name, states:list, frame_max, size:tuple=None):
+    def __init__(self, file_name, states: list, frame_max, size: tuple=None):
         """
             Receives the file name and a list of states in order.
             Each state needs to be on the same line
@@ -23,7 +24,7 @@ class SpriteSheet:
         for state in self.states:
             ref_dict[state] = []
             for frame in range(self.frame_max):
-                ref_dict[state].append( self.get_image_from_state(state, frame) )
+                ref_dict[state].append(self.get_image_from_state(state, frame))
 
         return ref_dict
 
@@ -39,23 +40,24 @@ class SpriteSheet:
 
         return self.get_image_from_pix(x, y, self.size)
 
-    def get_image_from_pix(self, x, y, size:tuple=None):
+    def get_image_from_pix(self, x, y, size: tuple=None):
 
         if not size:
             size = self.size
 
         image = pygame.Surface(size).convert()
         image.blit(self.sheet, (0, 0), ((x, y), size))
-        image.set_colorkey(( 0,0,0 ))
+        image.set_colorkey((0, 0, 0))
 
         return image
-    
+
     def __str__(self):
         return self.sheet
+
 
 def init_spritesheet():
     global SkeletonSheet
     global RougeSheet
 
     SkeletonSheet = SpriteSheet(settings.img_direc + "skeleton.png", states=['Idle', 'Jumping', 'Walking', 'Attacking', 'Dying'], frame_max=10, size=(20, 32))
-    RougeSheet = SpriteSheet(settings.img_direc + "rouge.png", states=['Idle', 'Jumping', 'Walking', 'Attacking', 'Dying'], frame_max=10, size=(16, 32))
+    RougeSheet = SpriteSheet(settings.img_direc + "rouge.png", states=['Idle', 'Jumping', 'Walking', 'Attacking', 'Dying'], frame_max=10, size=(20, 32))

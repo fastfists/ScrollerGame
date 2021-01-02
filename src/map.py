@@ -7,7 +7,6 @@ from src.entities.walls import Wall
 from src.entities.enemy import *
 
 
-
 def load_map(map_name) -> pygame.Surface:
     filename = path.join('assets/maps/', map_name+'.tmx')
     return pytmx.load_pygame(filename, pixelalpha=True)
@@ -38,6 +37,7 @@ def create_surface(map_name):
 
     return map_surface
 
+
 def add_mobs(game, tile_map):
     player = game.player
     from src.spritesheet import RougeSheet
@@ -52,6 +52,7 @@ def add_mobs(game, tile_map):
         if tile.name == "Bird":
             enemy = basic_bird(tile.x, tile.y, **tile.properties)
             game.enemies.add(enemy)
+
 
 def create_walls(tile_map) -> pygame.sprite.Group:
 

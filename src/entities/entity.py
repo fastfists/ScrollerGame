@@ -8,7 +8,7 @@ class Entity(pygame.sprite.Sprite):
 
     max_health = 100
     health = 100
-    animation_speed = 0.3
+    animation_speed = 0.15
     frame = 0
     counter = 0
     state = State.basic_state()
